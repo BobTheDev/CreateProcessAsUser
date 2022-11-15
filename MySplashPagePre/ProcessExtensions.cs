@@ -1,7 +1,8 @@
-﻿using System;
+﻿
+using System;
 using System.Runtime.InteropServices;
 
-namespace BobHongboXu.ProcessExtensions
+namespace MySplashPagePre
 {
     public static class ProcessExtensions
     {
