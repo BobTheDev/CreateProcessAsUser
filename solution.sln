@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySplashPagePre", "MySplashPagePre\MySplashPagePre.csproj", "{1E725D2E-DE73-43B6-8211-083971FA97CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShutdownApplicationLoader", "ShutdownApplicationLoader\ShutdownApplicationLoader.csproj", "{B62C6871-4BD6-46DC-9178-9679CF7EF360}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{1E725D2E-DE73-43B6-8211-083971FA97CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E725D2E-DE73-43B6-8211-083971FA97CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E725D2E-DE73-43B6-8211-083971FA97CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B62C6871-4BD6-46DC-9178-9679CF7EF360}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B62C6871-4BD6-46DC-9178-9679CF7EF360}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B62C6871-4BD6-46DC-9178-9679CF7EF360}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B62C6871-4BD6-46DC-9178-9679CF7EF360}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
