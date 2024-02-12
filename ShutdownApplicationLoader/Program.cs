@@ -1,24 +1,35 @@
 ﻿using System;
+using System.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.IO;
 
 using McDToolsLib;
 
 namespace ShutdownApplicationLoader
 {
+    
     internal class Program
     {
         static Logger Log;
+
+        static private readonly AppSettingsReader settingsReader = new AppSettingsReader();
+
+        static public string name_of_shutdownApplicaton { get => (string)settingsReader.GetValue("name_of_shutdownApplicaton", typeof(string)); }
+      
+
         static void Main(string[] args)
         {
             Log = new Logger();
             Log.StartNewLog("ShutdownApplication_Loader_" + DateTime.Now.ToString("yyyyMMdd-HHmmss") + ".log", false);
-            Log.WriteTitle("ShutdownApplication_Loader started");
+            Log.WriteTitle("name_of_shutdownApplicaton:" + name_of_shutdownApplicaton);
+
+            Log.WriteTitle("ShutdownApplication_Loader started"); 
             string currentUser = Environment.UserName;
-            string name_of_shutdownApplicaton = "ShutdownApplicationV4.5.exe";
+            //string name_of_shutdownApplicaton = "ShutdownApplicationV4.5.exe";
             bool bNeedDownToNewpos = false;
             Log.WriteInfoMessage("current user is:" + currentUser);
 
@@ -33,6 +44,15 @@ namespace ShutdownApplicationLoader
                 bNeedDownToNewpos = true;
             }
             Log.WriteInfoMessage("bNeedDownToNewpos:" + bNeedDownToNewpos);
+
+            bool fileExists = File.Exists(".\\" + name_of_shutdownApplicaton);
+
+            if (!fileExists)
+            {
+                Log.WriteInfoMessage("file " + "[.\\" + name_of_shutdownApplicaton + "] does not exist, return");
+                return;
+            }
+
             if (bNeedDownToNewpos)
             {
                 Log.WriteInfoMessage("about to start the shutdownApplicaton with local user");
