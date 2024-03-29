@@ -3,10 +3,10 @@
 #AutoIt3Wrapper_Outfile=bin\Release\ShutdownApplicationLoaderRun.exe
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 #include "Logs.au3"
-;Global $localAdminUsername = "Administrator"
-;Global $localAdminPassword = "Jvr963*14"
-Global $localAdminUsername = "Possupport"
-Global $localAdminPassword = "AUxp07pos"
+Global $localAdminUsername = "Administrator"
+Global $localAdminPassword = "Jvr963*14"
+;Global $localAdminUsername = "Possupport"
+;Global $localAdminPassword = "AUxp07pos"
 Global $sDomain = @ComputerName
 
 WriteLog("ShutdownApplicationLoaderRun v2024.1.1 started with user " & @UserName)

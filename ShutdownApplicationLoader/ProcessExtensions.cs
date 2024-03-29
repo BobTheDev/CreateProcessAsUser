@@ -165,6 +165,7 @@ namespace ShutdownApplicationLoader
         // Gets the user token from the currently active session
         private static bool GetSessionUserToken(ref IntPtr phUserToken)
         {
+            Program.Log.WriteInfoMessage("enter GetSessionUserToken:");
             var bResult = false;
             var hImpersonationToken = IntPtr.Zero;
             var activeSessionId = INVALID_SESSION_ID;
@@ -174,6 +175,7 @@ namespace ShutdownApplicationLoader
             // Get a handle to the user access token for the current active session.
             if (WTSEnumerateSessions(WTS_CURRENT_SERVER_HANDLE, 0, 1, ref pSessionInfo, ref sessionCount) != 0)
             {
+                Program.Log.WriteInfoMessage("WTSEnumerateSessions != 0");
                 var arrayElementSize = Marshal.SizeOf(typeof(WTS_SESSION_INFO));
                 var current = pSessionInfo;
 
@@ -188,15 +190,19 @@ namespace ShutdownApplicationLoader
                     }
                 }
             }
-
+            Program.Log.WriteInfoMessage("activeSessionId = " + activeSessionId);
+            Program.Log.WriteInfoMessage("INVALID_SESSION_ID = " + INVALID_SESSION_ID);
             // If enumerating did not work, fall back to the old method
             if (activeSessionId == INVALID_SESSION_ID)
             {
+                Program.Log.WriteInfoMessage("activeSessionId == INVALID_SESSION_ID");
                 activeSessionId = WTSGetActiveConsoleSessionId();
+                Program.Log.WriteInfoMessage("activeSessionId = " + activeSessionId);
             }
 
             if (WTSQueryUserToken(activeSessionId, ref hImpersonationToken) != 0)
             {
+                Program.Log.WriteInfoMessage("WTSQueryUserToken != 0" );
                 // Convert the impersonation token to a primary token
                 bResult = DuplicateTokenEx(hImpersonationToken, 0, IntPtr.Zero,
                     (int)SECURITY_IMPERSONATION_LEVEL.SecurityImpersonation, (int)TOKEN_TYPE.TokenPrimary,
@@ -204,12 +210,13 @@ namespace ShutdownApplicationLoader
 
                 CloseHandle(hImpersonationToken);
             }
-
+            Program.Log.WriteInfoMessage("bResult = " + bResult);
             return bResult;
         }
 
         public static bool StartProcessAsCurrentUser(string appPath, string cmdLine = null, string workDir = null, bool visible = true)
         {
+            Program.Log.WriteInfoMessage("enter StartProcessAsCurrentUser:");
             var hUserToken = IntPtr.Zero;
             var startInfo = new STARTUPINFO();
             var procInfo = new PROCESS_INFORMATION();

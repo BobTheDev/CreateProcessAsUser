@@ -164,6 +164,7 @@ namespace BobHongboXu.ProcessExtensions
         // Gets the user token from the currently active session
         private static bool GetSessionUserToken(ref IntPtr phUserToken)
         {
+            
             var bResult = false;
             var hImpersonationToken = IntPtr.Zero;
             var activeSessionId = INVALID_SESSION_ID;
@@ -209,6 +210,7 @@ namespace BobHongboXu.ProcessExtensions
 
         public static bool StartProcessAsCurrentUser(string appPath, string cmdLine = null, string workDir = null, bool visible = true)
         {
+            
             var hUserToken = IntPtr.Zero;
             var startInfo = new STARTUPINFO();
             var procInfo = new PROCESS_INFORMATION();

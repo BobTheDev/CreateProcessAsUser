@@ -11,10 +11,10 @@ using McDToolsLib;
 
 namespace ShutdownApplicationLoader
 {
-    
+
     internal class Program
     {
-        static Logger Log;
+        public static Logger Log;
 
         static private readonly AppSettingsReader settingsReader = new AppSettingsReader();
 
@@ -33,14 +33,14 @@ namespace ShutdownApplicationLoader
             bool bNeedDownToNewpos = false;
             Log.WriteInfoMessage("current user is:" + currentUser);
 
-            if (currentUser.ToUpper().Contains("NEWPOS"))
+            if (currentUser.ToUpper().Contains("AUS-R"))
             {
-                Log.WriteInfoMessage("running as newpos user already:" + currentUser);
+                Log.WriteInfoMessage("running as store user already:" + currentUser);
                 bNeedDownToNewpos = false;
             }
             else
             {
-                Log.WriteInfoMessage("running not as newpos user:" + currentUser);
+                Log.WriteInfoMessage("running not as store user:" + currentUser);
                 bNeedDownToNewpos = true;
             }
             Log.WriteInfoMessage("bNeedDownToNewpos:" + bNeedDownToNewpos);
@@ -55,8 +55,26 @@ namespace ShutdownApplicationLoader
 
             if (bNeedDownToNewpos)
             {
-                Log.WriteInfoMessage("about to start the shutdownApplicaton with local user");
-                ProcessExtensions.StartProcessAsCurrentUser(".\\" + name_of_shutdownApplicaton);
+                Log.WriteInfoMessage("about to start the shutdownApplicaton with local user:" + name_of_shutdownApplicaton);
+                //ProcessExtensions.StartProcessAsCurrentUser(".\\" + name_of_shutdownApplicaton);
+                try
+                {
+                    ProcessExtensions.StartProcessAsCurrentUser(".\\", name_of_shutdownApplicaton, ".\\");
+                }
+                catch (Exception ex)
+                {
+                    // Output exception details
+                    Log.WriteInfoMessage("Exception caught while try to run the app using local user:");
+                    Log.WriteInfoMessage("Message: " + ex.Message);
+                    Log.WriteInfoMessage("Stack Trace: " + ex.StackTrace);
+                    if (ex.InnerException != null)
+                    {
+                        Log.WriteInfoMessage("Inner Exception: " + ex.InnerException.Message);
+                    }
+                }
+
+
+                
                 Log.WriteInfoMessage("the shutdownApplicaton finished normally with local user");
             }
             else
